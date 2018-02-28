@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a2963b6f-3d8d-4c64-b19e-67a57da27572" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.startup/startup.order" afterPath="$PROJECT_DIR$/.startup/startup.order" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/conf/eightfour.yaml" afterPath="$PROJECT_DIR$/conf/eightfour.yaml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docsrc/nohup.out" afterPath="$PROJECT_DIR$/docsrc/nohup.out" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/syllogistic/eightfour/EightFourApplication.java" afterPath="$PROJECT_DIR$/src/main/java/com/syllogistic/eightfour/EightFourApplication.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/syllogistic/eightfour/GraphQLFactory.java" afterPath="$PROJECT_DIR$/src/main/java/com/syllogistic/eightfour/GraphQLFactory.java" />
-    </list>
+    <list default="true" id="a2963b6f-3d8d-4c64-b19e-67a57da27572" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -46,8 +39,8 @@
       <file leaf-file-name="GraphQLFactory.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/syllogistic/eightfour/GraphQLFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="52" selection-end-column="5" />
+            <state relative-caret-position="408">
+              <caret line="59" column="16" lean-forward="false" selection-start-line="59" selection-start-column="16" selection-end-line="59" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -392,8 +385,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/syllogistic/eightfour/GraphQLFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="52" selection-end-column="5" />
+        <state relative-caret-position="408">
+          <caret line="59" column="16" lean-forward="false" selection-start-line="59" selection-start-column="16" selection-end-line="59" selection-end-column="16" />
           <folding />
         </state>
       </provider>

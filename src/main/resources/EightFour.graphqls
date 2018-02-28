@@ -1,0 +1,34 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Query {
+    guest(email: String): Guest
+    allGuests: [Guest]
+}
+
+type Guest {
+    email: String!
+    firstName: String
+    lastName: String
+    address: String
+    phone: String
+    tableName: String
+    rsvp: Boolean
+}
+
+input GuestInput {
+    email: String!
+    firstName: String
+    lastName: String
+    address: String
+    phone: String
+    tableName: String
+    rsvp: Boolean
+}
+
+type Mutation {
+    guest(guestInfo: GuestInput): Guest
+    deleteGuest(email: String): String
+}

@@ -1,0 +1,33 @@
+cassandraHost: 192.168.1.2
+cassandraPort: 9042
+keyspace: eightfour
+
+graphql:
+  schemaFile: EightFour.graphqls
+
+# HTTP-specific options.
+server:
+  type: simple
+  rootPath: /api/
+  applicationContextPath: /
+  adminContextPath: /admin
+  connector:
+    type: http
+    port: 8080
+
+  requestLog:
+    appenders:
+      - type: console
+        timeZone: UTC
+        target: stdout
+
+logging:
+  level: INFO
+  loggers:
+    com.smoketurner.dropwizard.graphql: DEBUG
+    com.syllogistic.eightfour: DEBUG
+    graphql: DEBUG
+  appenders:
+    - type: console
+      timeZone: UTC
+      target: stdout

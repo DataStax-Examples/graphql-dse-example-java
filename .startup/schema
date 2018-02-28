@@ -1,0 +1,31 @@
+#!/bin/bash
+
+set -x
+
+RF=3
+IP=$(ifconfig | awk '/inet/ { print $2 }' | egrep -v '^fe|^127|^192|^172|::' | head -1)
+IP=${IP#addr:}
+
+if [[ $HOSTNAME == "node"* ]] ; then
+    #rightscale
+    IP=$(grep $(hostname) /etc/hosts | grep -v ext | awk '{print $1}')
+fi
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # Mac OSX
+    IP=localhost
+    RF=1
+fi
+
+cqlsh "$IP" -e "
+CREATE KEYSPACE if not exists eightfour WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '"$RF"'}  AND durable_writes = true;
+
+CREATE TABLE if not exists eightfour.guests (
+    email text PRIMARY KEY,
+    address text,
+    first_name text,
+    last_name text,
+    phone text,
+    rsvp boolean,
+    table_name text
+)"

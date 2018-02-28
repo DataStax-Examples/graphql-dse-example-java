@@ -2,8 +2,6 @@ package com.syllogistic.eightfour;
 /**
  * Created by tato on 1/28/18.
  */
-import javax.servlet.DispatcherType;
-import javax.servlet.FilterRegistration;
 
 import com.syllogistic.eightfour.api.AllGuestDataFetcher;
 import com.syllogistic.eightfour.api.DeleteGuestDataFetcher;
@@ -13,16 +11,19 @@ import com.syllogistic.eightfour.managed.Cassandra;
 import com.syllogistic.eightfour.managed.GuestDAO;
 import com.syllogistic.eightfour.resources.EightFourResource;
 import graphql.schema.GraphQLSchema;
+import graphql.schema.idl.RuntimeWiring;
 import graphql.servlet.GraphQLServlet;
 import graphql.servlet.SimpleGraphQLServlet;
-import io.dropwizard.assets.AssetsBundle;
-import org.eclipse.jetty.servlets.CrossOriginFilter;
-import graphql.schema.idl.RuntimeWiring;
 import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
+import io.dropwizard.configuration.SubstitutingSourceProvider;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-
 import java.util.EnumSet;
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
+import org.eclipse.jetty.servlets.CrossOriginFilter;
 
 public class EightFourApplication
         extends Application<EightFourConfiguration> {
@@ -38,6 +39,13 @@ public class EightFourApplication
 
     @Override
     public void initialize(Bootstrap<EightFourConfiguration> bootstrap) {
+
+        // Enable variable substitution with environment variables
+        bootstrap.setConfigurationSourceProvider(
+                new SubstitutingSourceProvider(bootstrap.getConfigurationSourceProvider(),
+                        new EnvironmentVariableSubstitutor(false)
+                )
+        );
 
         //TODO: remove dependency on graphql-java, and add this
         bootstrap.addBundle(new AssetsBundle("/assets/", "/"));

@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -x
+
+IP=$(ifconfig | awk '/inet/ { print $2 }' | egrep -v '^fe|^127|^192|^172|::' | head -1)
+IP=${IP#addr:}
+
+if [[ $HOSTNAME == "node"* ]] ; then
+    #rightscale
+    IP=$(grep $(hostname) /etc/hosts | grep -v ext | awk '{print $1}')
+fi
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # Mac OSX
+    IP=localhost
+fi
+
+ps -ef | grep EightFour-0 | grep -v grep|awk '{print $2}' | xargs kill -9
+
+mvn package
+
+echo $IP
+
+nohup java -jar target/eightfour-graphql-1.0-SNAPSHOT.jar server "$PWD"/conf/eightfour.yaml &

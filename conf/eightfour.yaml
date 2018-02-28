@@ -1,4 +1,4 @@
-cassandraHost: 192.168.1.2
+cassandraHost: ${IP:-localhost}
 cassandraPort: 9042
 keyspace: eightfour
 

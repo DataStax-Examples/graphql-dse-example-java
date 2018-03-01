@@ -8,6 +8,14 @@ menu:
       weight: 201
 ---
 
+High level, we can think of GraphQL as a better / next generation REST.
+The fact that GraphQL is based around a strongly typed schema and alows for flexible queries are the main reasons graphql is so useful and popular.
+The schemas in GraphQL are a specific type of graph known as a tree.
+A tree is an undirected graph in which all vertices are connected by at most one edge.
+There is no relationship between GraphQL and DSE Graph.
+GraphQL is not particular about the backend that is used to store the data behind the API.
+In this example we use raw C* tables in DSE, but we could just as easily use search, analytics, or graph to power data fetching and mutations if and when those tools are relevant for a particular use case and make sense given consistency requirements and SLAs.
+
 ## Backend
 
 ### Schema

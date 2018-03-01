@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a2963b6f-3d8d-4c64-b19e-67a57da27572" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docsrc/content/sample/sample.md" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docsrc/config.toml" afterPath="$PROJECT_DIR$/docsrc/config.toml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docsrc/content/index.md" afterPath="$PROJECT_DIR$/docsrc/content/index.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docsrc/nohup.out" afterPath="$PROJECT_DIR$/docsrc/nohup.out" />
-    </list>
+    <list default="true" id="a2963b6f-3d8d-4c64-b19e-67a57da27572" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />

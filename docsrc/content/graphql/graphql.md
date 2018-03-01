@@ -125,7 +125,8 @@ The main features of GraphiQL include:
 To get started with GraphiQL and this example, pull up the UI and paste the following queries in the query section on the left of the screen:
 
 ```
-guest(email: $email) {
+query getGuestByEmail($email: String) {
+  guest(email: $email) {
     email
     firstName
     lastName

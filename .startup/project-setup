@@ -1,0 +1,61 @@
+#!/bin/bash
+
+set -x
+
+exec 2> /tmp/debugout
+HOST_IP=$(ifconfig | awk '/inet/ { print $2 }' | egrep -v '^fe|^127|^192|^172|::' | head -1)
+HOST_IP=${IP#addr:}
+
+if [[ $HOSTNAME == "node"* ]] ; then
+    #rightscale
+    HOST_IP=$(grep $(hostname)_ext /etc/hosts | awk '{print $1}')
+fi
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # Mac OSX
+    HOST_IP=localhost
+fi
+
+echo "Setting up Project"
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{  
+   "name":"datastax",
+   "environments":{  
+      "default":{  
+         "recipe":{  
+            "location":"eclipse/ubuntu_jdk8",
+            "type":"dockerimage"
+         },
+         "machines":{  
+            "dev-machine":{  
+               "attributes":{  
+                  "memoryLimitBytes":"2147483648"
+               },
+               "servers":{  
+               },
+               "agents":[  
+                  "org.eclipse.che.exec",
+                  "org.eclipse.che.terminal",
+                  "org.eclipse.che.ws-agent"
+               ]
+            }
+         }
+      }
+   },
+   "projects":[  
+   ],
+   "commands":[  
+      {  
+         "name":"build",
+         "type":"mvn",
+         "attributes":{  
+            "goal":"Build",
+            "previewUrl":""
+         },
+         "commandLine":"mvn clean install -f ${current.project.path}"
+      }
+   ],
+   "defaultEnv":"default",
+   "links":[  
+   ]
+}' 'http://'"$HOST_IP"':8081/api/workspace?start-after-create=false'
+sudo cp -r ./* /tmp/data/instance/data/workspaces/datastax/

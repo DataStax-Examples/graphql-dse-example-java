@@ -16,7 +16,7 @@ CRUDL leverages modern javascript libraries (react and redux) to accomplish this
 CRUDL is hosted by the same dropwizard powered web application that runs the GraphQL service and hosts GraphiQL.
 To access crudl on the machine running this asset hit `http://<host>:8080/crudl` on your web browser.
 
-The default credentials are demo / i love puppies
+The default credentials are demo / ilovepuppies
 
 ### How?
 

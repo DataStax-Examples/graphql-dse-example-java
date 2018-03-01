@@ -108,6 +108,7 @@
       <list>
         <option value="$PROJECT_DIR$/src/main/java/com/syllogistic/eightfour/EightFourApplication.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/syllogistic/eightfour/GraphQLFactory.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/schema.cql" />
       </list>
     </option>
   </component>

@@ -62,6 +62,7 @@ headers = {'content-type': 'application/json', 'Accept': 'application/json'}
 r = requests.post("http://" + sys.argv[1] + ":8081/api/workspace?start-after-create=false",
                   data=json.dumps(workspace_config),
                   headers=headers)
+
 response = json.loads(r.content)
 workspace_id = response['id']
 print(workspace_id)

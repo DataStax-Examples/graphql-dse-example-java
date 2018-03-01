@@ -33,6 +33,14 @@ disableKinds = ["taxonomy","taxonomyTerm"]
 	url    = "/"
 	weight = 10
 [[menu.main]]
+    name   = "GraphQL"
+    url    = "graphql/"
+    weight = 20
+[[menu.main]]
+    name   = "CRUDL"
+    url    = "crudl/"
+    weight = 30
+[[menu.main]]
     name   = "Build and Run"
     url    = "buildandrun/"
     weight = 100

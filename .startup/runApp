@@ -2,17 +2,17 @@
 
 set -x
 
-IP=$(ifconfig | awk '/inet/ { print $2 }' | egrep -v '^fe|^127|^192|^172|::' | head -1)
-IP=${IP#addr:}
+export IP=$(ifconfig | awk '/inet/ { print $2 }' | egrep -v '^fe|^127|^192|^172|::' | head -1)
+export IP=${IP#addr:}
 
 if [[ $HOSTNAME == "node"* ]] ; then
     #rightscale
-    IP=$(grep $(hostname) /etc/hosts | grep -v ext | awk '{print $1}')
+    export IP=$(grep $(hostname) /etc/hosts | grep -v ext | awk '{print $1}')
 fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # Mac OSX
-    IP=localhost
+    export IP=localhost
 fi
 
 ps -ef | grep EightFour-0 | grep -v grep|awk '{print $2}' | xargs kill -9

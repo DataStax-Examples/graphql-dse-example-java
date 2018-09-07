@@ -4,15 +4,15 @@ import com.syllogistic.eightfour.managed.Cassandra;
 import com.syllogistic.eightfour.managed.GuestDAO;
 
 public class ServiceRegistry {
-    public static EightFourConfiguration getConfiguration() {
+    public static GraphQLDseConfiguration getConfiguration() {
         return configuration;
     }
 
-    private static EightFourConfiguration configuration;
+    private static GraphQLDseConfiguration configuration;
     private static Cassandra cassandra;
     private static GuestDAO guestDAO;
 
-    public synchronized static void setConfiguration(EightFourConfiguration configuration)
+    public synchronized static void setConfiguration(GraphQLDseConfiguration configuration)
     {
         if (ServiceRegistry.configuration != null)
             throw new RuntimeException("Configuration already set");

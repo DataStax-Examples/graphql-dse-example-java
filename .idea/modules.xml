@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/eightfour-graphql.iml" filepath="$PROJECT_DIR$/eightfour-graphql.iml" />
+      <module fileurl="file://$PROJECT_DIR$/graphql-dse.iml" filepath="$PROJECT_DIR$/graphql-dse.iml" />
     </modules>
   </component>
 </project>

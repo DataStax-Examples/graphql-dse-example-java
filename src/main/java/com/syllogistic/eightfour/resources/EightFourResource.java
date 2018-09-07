@@ -8,7 +8,7 @@ import java.util.Optional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import com.codahale.metrics.annotation.Timed;
-import com.syllogistic.eightfour.EightFourConfiguration;
+import com.syllogistic.eightfour.GraphQLDseConfiguration;
 import com.syllogistic.eightfour.ServiceRegistry;
 import com.syllogistic.eightfour.api.Creds;
 import com.syllogistic.eightfour.api.Guest;
@@ -35,7 +35,7 @@ public class EightFourResource {
     @Path("/login")
     public void login(Creds payload) throws Exception {
         //TODO: This is kinda gnarly. Please implement oauth / google auth IRL.
-        EightFourConfiguration conf = ServiceRegistry.getConfiguration();
+        GraphQLDseConfiguration conf = ServiceRegistry.getConfiguration();
         if (payload.getPassword().equals(conf.getPassword())){
             return;
         }

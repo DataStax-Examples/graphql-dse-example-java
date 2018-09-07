@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.syllogistic.eightfour.managed.Cassandra;
 import io.dropwizard.Configuration;
 
-public class EightFourConfiguration extends Configuration{
+public class GraphQLDseConfiguration extends Configuration{
 
     public String getCassandraHost() {
         return cassandraHost;
@@ -61,7 +61,7 @@ public class EightFourConfiguration extends Configuration{
     public final GraphQLFactory graphql = new GraphQLFactory();
 
     @JsonProperty
-    public GraphQLFactory getGraphQLFactory(EightFourConfiguration configuration) {
+    public GraphQLFactory getGraphQLFactory(GraphQLDseConfiguration configuration) {
         return graphql;
     }
 }

@@ -3,7 +3,7 @@ cassandraPort: 9042
 keyspace: eightfour
 
 graphql:
-  schemaFile: EightFour.graphqls
+  schemaFile: schema.graphqls
 
 # HTTP-specific options.
 server:

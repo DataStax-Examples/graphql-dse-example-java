@@ -4,13 +4,12 @@ package com.syllogistic.eightfour.managed;
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.exceptions.InvalidQueryException;
-import com.syllogistic.eightfour.EightFourConfiguration;
+import com.syllogistic.eightfour.GraphQLDseConfiguration;
 import io.dropwizard.lifecycle.Managed;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.concurrent.TimeUnit;
 
 /**
  */
@@ -23,9 +22,9 @@ public class Cassandra implements Managed
     final String host;
     final int port;
     final String keyspace;
-    final EightFourConfiguration conf;
+    final GraphQLDseConfiguration conf;
 
-    public Cassandra(EightFourConfiguration conf)
+    public Cassandra(GraphQLDseConfiguration conf)
     {
         this.conf = conf;
         this.port = conf.getCassandraPort();

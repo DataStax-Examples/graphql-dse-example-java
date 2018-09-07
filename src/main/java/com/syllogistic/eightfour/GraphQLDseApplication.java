@@ -25,11 +25,11 @@ import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 
-public class EightFourApplication
-        extends Application<EightFourConfiguration> {
+public class GraphQLDseApplication
+        extends Application<GraphQLDseConfiguration> {
 
     public static void main(String[] args) throws Exception{
-        new EightFourApplication().run(args);
+        new GraphQLDseApplication().run(args);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class EightFourApplication
     }
 
     @Override
-    public void initialize(Bootstrap<EightFourConfiguration> bootstrap) {
+    public void initialize(Bootstrap<GraphQLDseConfiguration> bootstrap) {
 
         // Enable variable substitution with environment variables
         bootstrap.setConfigurationSourceProvider(
@@ -52,10 +52,10 @@ public class EightFourApplication
         //bootstrap.addBundle(new AssetsBundle("/assets/crudl/*", "/index.htm"));
 
 
-        final GraphQLBundle<EightFourConfiguration> bundle = new GraphQLBundle<EightFourConfiguration>() {
+        final GraphQLBundle<GraphQLDseConfiguration> bundle = new GraphQLBundle<GraphQLDseConfiguration>() {
             @Override
             public GraphQLFactory getGraphQLFactory(
-                    EightFourConfiguration configuration) {
+                    GraphQLDseConfiguration configuration) {
                 final GraphQLFactory factory = configuration
                         .getGraphQLFactory(configuration);
                 // the RuntimeWiring must be configured prior to the run()
@@ -68,7 +68,7 @@ public class EightFourApplication
     }
 
     @Override
-    public void run(EightFourConfiguration configuration,
+    public void run(GraphQLDseConfiguration configuration,
                     Environment environment) throws Exception {
 
         //GraphQl Factory Stuff
@@ -121,7 +121,7 @@ public class EightFourApplication
     }
 
     private static RuntimeWiring buildWiring(
-            EightFourConfiguration configuration) {
+            GraphQLDseConfiguration configuration) {
 
         final GuestDataFetcher fetcher = new GuestDataFetcher();
         final AllGuestDataFetcher allFetcher = new AllGuestDataFetcher();

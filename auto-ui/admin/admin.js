@@ -75,6 +75,7 @@ var admin = {}
 admin.title = 'CRUDL GraphQL UI',
 admin.options = OPTIONS
 admin.views = viewData
+//admin.views = { guests }
 admin.auth = { login, logout }
 admin.custom = { dashboard: CustomDashboard }
 admin.id = 'crudl'

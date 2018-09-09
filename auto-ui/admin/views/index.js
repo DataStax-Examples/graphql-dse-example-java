@@ -5,12 +5,15 @@ import { createResourceConnector } from '../connectors'
 
 export function generateView(objectQueries, listQueries){
     var views = {}
+    var i = 0
     objectQueries.forEach(function(query){
         const name = query.name;
         const fields = query.type.getFields();
         const fieldNames = Object.keys(fields).join();
 
         const connector = createResourceConnector(name, fieldNames);
+
+        //-------------------------------------------------------------------
         var listView = {
             path: name,
             title: name,
@@ -24,12 +27,37 @@ export function generateView(objectQueries, listQueries){
             })
         }
 
+        //-------------------------------------------------------------------
+        //-------------------------------------------------------------------
         listView.fields = []
+
+        var changeView = {}
+        changeView.fieldsets = []
+        changeView.fieldsets[i]={fields : []}
+
+        var addView = {}
+        addView.fieldsets = []
+        addView.fieldsets[i]={fields : []}
+        i++
         var requiredFields = []
         Object.keys(fields).forEach(function(key){
             const fieldName = fields[key].name
             const isMain = fields[key].type.name == undefined
+            var fieldType
+            var initialValue
+            if (fields[key].type == "Boolean"){
+                fieldType = "Checkbox"
+                initialValue = false
+            }else {
+                if (fields[key].type.ofType != undefined){
+                    fieldType =  fields[key].type.ofType.name
+                }else {
+                    fieldType =  fields[key].type.name
+                }
+            }
             if (isMain) {requiredFields.push(fields[key].name) }
+
+            //-------------------------------------------------------------------
             listView.fields.push(
                 {
                     name: fieldName,
@@ -37,13 +65,33 @@ export function generateView(objectQueries, listQueries){
                     main: isMain,
                 }
             )
+
+            var thisField
+
+            if (initialValue != undefined){
+                thisField =
+                {
+                    name: fieldName,
+                    label: fieldName,
+                    field: fieldType,
+                    initialValue: initialValue,
+                }
+            } else{
+                thisField =
+                {
+                    name: fieldName,
+                    label: fieldName,
+                    field: fieldType,
+                }
+            }
+            changeView.fieldsets[0].fields.push(thisField)
+            addView.fieldsets[0].fields.push(thisField)
         })
 
-        //-------------------------------------------------------------------
-        var changeView = {
-            //TODO: figure out compound keys
+        changeView = Object.assign({
+            //TODO: figure out how to work with compound keys
             path: name+ "/:" + requiredFields[0],
-            title: name,
+            title: 'Change ' + name,
             actions: {
                 get: function (req) { return connector(crudl.path[requiredFields[0]]).read(req) },
                 save: function (req) { return connector(crudl.path[requiredFields[0]]).update(req) },
@@ -55,103 +103,17 @@ export function generateView(objectQueries, listQueries){
             denormalize: (data) => {
                 return data
             }
-        }
-
-        changeView.fieldsets = [
-            {
-                fields: [
-                    {
-                        name: 'email',
-                        label: 'Email',
-                        field: 'String',
-                    },
-                    {
-                        name: 'firstName',
-                        label: 'Name',
-                        field: 'String',
-                    },
-                    {
-                        name: 'lastName',
-                        label: 'Last Name',
-                        field: 'String',
-                    },
-                    {
-                        name: 'phone',
-                        label: 'Phone',
-                        field: 'String',
-                    },
-                    {
-                        name: 'address',
-                        label: 'Address',
-                        field: 'String',
-                    },
-                    {
-                        name: 'tableName',
-                        label: 'Table',
-                        field: 'String',
-                    },
-                    {
-                        name: 'rsvp',
-                        label: 'RSVP',
-                        field: 'Checkbox',
-                        initialValue: false,
-                    },
-                ],
-            },
-        ]
+        }, changeView)
 
         //-------------------------------------------------------------------
-        var addView = {
-            path: 'guests/new',
-            title: 'New User',
+        addView = Object.assign({
+            path: name+'/new',
+            title: 'New ' + name,
             denormalize: changeView.denormalize,
             actions: {
-                add: function (req) { return guests.create(req) },
+                add: function (req) { return connector.create(req) },
             },
-        }
-
-        addView.fieldsets = [
-            {
-                fields: [
-                    {
-                        name: 'email',
-                        label: 'Email',
-                        field: 'String',
-                    },
-                    {
-                        name: 'firstName',
-                        label: 'Name',
-                        field: 'String',
-                    },
-                    {
-                        name: 'lastName',
-                        label: 'Last Name',
-                        field: 'String',
-                    },
-                    {
-                        name: 'phone',
-                        label: 'Phone',
-                        field: 'String',
-                    },
-                    {
-                        name: 'address',
-                        label: 'Address',
-                        field: 'String',
-                    },
-                    {
-                        name: 'tableName',
-                        label: 'Table',
-                        field: 'String',
-                    },
-                    {
-                        name: 'rsvp',
-                        label: 'RSVP',
-                        field: 'Checkbox',
-                        initialValue: false,
-                    },
-                ],
-            },
-        ]
+        }, addView)
 
         views[name] = { listView, changeView, addView}
 

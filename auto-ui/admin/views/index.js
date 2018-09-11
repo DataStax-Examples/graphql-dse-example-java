@@ -1,7 +1,7 @@
 import React from 'react'
 import SplitDateTimeField from '../fields/SplitDateTimeField'
 
-import { createResourceConnector } from '../connectors'
+import { createResourceConnector } from '../auto-connectors'
 
 export function generateView(objectQueries, listQueries){
     var views = {}
@@ -11,17 +11,11 @@ export function generateView(objectQueries, listQueries){
         const fields = query.type.getFields();
         const fieldNames = Object.keys(fields).join();
 
-        const connector = createResourceConnector(name, fieldNames);
 
         //-------------------------------------------------------------------
         var listView = {
             path: name,
             title: name,
-            actions: {
-                list: function (req) {
-                    return connector.read(req)
-                },
-            },
             normalize: (list) => list.map(item => {
                 return item
             })
@@ -33,16 +27,18 @@ export function generateView(objectQueries, listQueries){
 
         var changeView = {}
         changeView.fieldsets = []
-        changeView.fieldsets[i]={fields : []}
+        changeView.fieldsets[0]={fields : []}
 
         var addView = {}
         addView.fieldsets = []
-        addView.fieldsets[i]={fields : []}
+        addView.fieldsets[0]={fields : []}
         i++
         var requiredFields = []
         Object.keys(fields).forEach(function(key){
             const fieldName = fields[key].name
-            const isMain = fields[key].type.name == undefined
+            // TODO: we should be able to grab whether it's an ID based on
+            // a directive rather than the name
+            const isMain = fields[key].type.name == undefined && fields[key].name == "id"
             var fieldType
             var initialValue
             if (fields[key].type == "Boolean"){
@@ -50,9 +46,22 @@ export function generateView(objectQueries, listQueries){
                 initialValue = false
             }else {
                 if (fields[key].type.ofType != undefined){
-                    fieldType =  fields[key].type.ofType.name
+                    fieldType =  fields[key].type.ofType
+                    if (fieldType._fields){
+                        //TODO: for now exclude complex fields
+                        return
+                    }else{
+                        //TODO: for now if not a bool then string
+                        fieldType = "String"
+                    }
                 }else {
-                    fieldType =  fields[key].type.name
+                    if (fields[key].type._fields){
+                        //TODO: for now exclude complex fields
+                        return
+                    }else{
+                        fieldType =  fields[key].type.name
+                        fieldType = "String"
+                    }
                 }
             }
             if (isMain) {requiredFields.push(fields[key].name) }
@@ -87,6 +96,17 @@ export function generateView(objectQueries, listQueries){
             changeView.fieldsets[0].fields.push(thisField)
             addView.fieldsets[0].fields.push(thisField)
         })
+
+        var subselectedFieldNames = listView.fields.map(x => x.name).toString()
+        const connector = createResourceConnector(name, subselectedFieldNames, requiredFields.toString());
+
+        listView = Object.assign({
+            actions: {
+                list: function (req) {
+                    return connector.read(req)
+                },
+            },
+        }, listView)
 
         changeView = Object.assign({
             //TODO: figure out how to work with compound keys

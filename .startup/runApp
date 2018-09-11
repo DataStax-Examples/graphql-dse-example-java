@@ -15,10 +15,10 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     export IP=localhost
 fi
 
-ps -ef | grep EightFour-0 | grep -v grep|awk '{print $2}' | xargs kill -9
+ps -ef | grep graphql-dse | grep java | grep -v grep|awk '{print $2}' | xargs kill -9
 
 mvn package
 
 echo $IP
 
-nohup java -jar target/eightfour-graphql-1.0-SNAPSHOT.jar server "$PWD"/conf/eightfour.yaml &
+nohup java -jar target/graphql-dse-1.0-SNAPSHOT.jar server "$PWD"/conf/graphql-dse.yaml &

@@ -44,7 +44,7 @@
     "watchify": "^3.7.0"
   },
   "dependencies": {
-    "@crudlio/crudl-connectors-base": "^0.1.2",
+    "@crudlio/crudl-connectors-base": "github:phact/crudl-connectors-base#master",
     "graphql": "^14.0.2",
     "lodash": "^4.17.5",
     "pluralize": "^5.0.0",

@@ -1,4 +1,4 @@
-import { login as loginConnector } from './connectors'
+import { login as loginConnector } from './auto-connectors'
 
 //-------------------------------------------------------------------
 var login = {

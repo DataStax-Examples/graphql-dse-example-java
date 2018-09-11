@@ -20,7 +20,7 @@ fi
 echo "Installing CHE Eclipse IDE"
 pip install requests
 #install CHE
-sudo docker run --rm -e CHE_HOST=$HOST_IP -e CHE_PORT=8081 -v /var/run/docker.sock:/var/run/docker.sock -v /tmp/data:/data eclipse/che start
+sudo docker run --rm -e CHE_HOST=$HOST_IP -e CHE_PORT=8083 -v /var/run/docker.sock:/var/run/docker.sock -v /tmp/data:/data eclipse/che start
 echo "Setting up Project"
 
 echo $IP

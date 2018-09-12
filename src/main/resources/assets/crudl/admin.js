@@ -98,7 +98,6 @@ var admin = {};
 admin.title = 'CRUDL GraphQL UI', admin.options = OPTIONS;
 admin.views = viewData;
 //admin.views = { guests: guests }
-admin.auth = { login: login, logout: logout };
 admin.custom = { dashboard: _Dashboard2.default };
 admin.id = 'crudl';
 admin.messages = {

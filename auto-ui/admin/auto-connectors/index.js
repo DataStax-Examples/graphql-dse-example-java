@@ -102,6 +102,10 @@ export function createOptionsConnector(namePl, valueKey, labelKey) {
 }
 */
 
+export function createCustomQueryConnector(type, queryString, pathData){
+    return createGraphQLConnector().use(query(type, queryString, pathData))
+}
+
 export const login = createFrontendConnector(createBackendConnector())
     .use(url('/api/login'))
     .use(crudToHttp())

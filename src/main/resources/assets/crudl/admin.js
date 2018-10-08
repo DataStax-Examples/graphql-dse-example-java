@@ -1,10 +1,6 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -15,10 +11,11 @@ var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
 var _views = require('./views');
 
+var _autoConnectors = require('./auto-connectors');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var guests = require('./views/guests.js');
-//import { schema as schemaConnector } from './auto-connectors'
 
 var _require = require('./auth'),
     login = _require.login,
@@ -26,10 +23,14 @@ var _require = require('./auth'),
 
 var _require2 = require('graphql'),
     graphql = _require2.graphql,
-    buildSchema = _require2.buildSchema;
+    buildSchema = _require2.buildSchema,
+    getIntrospectionQuery = _require2.getIntrospectionQuery,
+    introspectionQuery = _require2.introspectionQuery;
 
-var schemaText = "" + "scalar DateTime scalar UUID  type Customer {   birthdate: DateTime   firstName: String   id: UUID!   lastName: String   purchases(orderBy: [OrderByInput!], pageSize: Int = 10, pageState: String): ProductPurchasePage!   views(orderBy: [OrderByInput!], pageSize: Int = 10, pageState: String): ProductViewPage! }  type CustomerPage {   data: [Customer!]!   pagingInfo: PagingInfo! }  type CustomerUpdated {   eventData: CustomerUpdatedData!   time: DateTime }  type CustomerUpdatedData {   birthdate: DateTime   firstName: String   id: UUID!   lastName: String }  type CustomerUpdatedResult {   errors: [String!]   event: CustomerUpdated }  type Mutation {   customerUpdated(event: CustomerUpdatedInput!, eventData: CustomerUpdatedDataInput!): CustomerUpdatedResult!   productCategoryUpdated(event: ProductCategoryUpdatedInput!, eventData: ProductCategoryUpdatedDataInput!): ProductCategoryUpdatedResult!   productPurchased(event: ProductPurchasedInput!, eventData: ProductPurchasedDataInput!): ProductPurchasedResult!   productUpdated(event: ProductUpdatedInput!, eventData: ProductUpdatedDataInput!): ProductUpdatedResult!   productViewed(eventData: ProductViewedDataInput!): ProductViewedResult! }  type PagingInfo {   hasNextPage: Boolean!   pageState: String }  type Product {   category: ProductCategory!   description: String   id: UUID!   name: String! }  type ProductCategory {   id: UUID!   name: String!   products(orderBy: [OrderByInput!], pageSize: Int = 10, pageState: String): ProductPage!   subCategories(orderBy: [OrderByInput!], pageSize: Int = 10, pageState: String): ProductCategoryPage!   superCategory: ProductCategory }  type ProductCategoryPage {   data: [ProductCategory!]!   pagingInfo: PagingInfo! }  type ProductCategoryUpdated {   eventData: ProductCategoryUpdatedData!   time: DateTime }  type ProductCategoryUpdatedData {   id: UUID!   name: String!   superCategory: ProductCategoryUpdatedDataSuperCategory }  type ProductCategoryUpdatedDataSuperCategory {   id: UUID! }  type ProductCategoryUpdatedResult {   errors: [String!]   event: ProductCategoryUpdated }  type ProductPage {   data: [Product!]!   pagingInfo: PagingInfo! }  type ProductPurchase {   amount: Float!   customer: Customer!   id: UUID!   product: Product!   time: DateTime }  type ProductPurchasePage {   data: [ProductPurchase!]!   pagingInfo: PagingInfo! }  type ProductPurchased {   eventData: ProductPurchasedData!   time: DateTime }  type ProductPurchasedData {   amount: Float!   customer: ProductPurchasedDataCustomer   id: UUID!   product: ProductPurchasedDataProduct   time: DateTime }  type ProductPurchasedDataCustomer {   id: UUID! }  type ProductPurchasedDataProduct {   id: UUID! }  type ProductPurchasedResult {   errors: [String!]   event: ProductPurchased }  type ProductUpdated {   eventData: ProductUpdatedData!   time: DateTime }  type ProductUpdatedData {   category: ProductUpdatedDataCategory   description: String   id: UUID!   name: String! }  type ProductUpdatedDataCategory {   id: UUID! }  type ProductUpdatedResult {   errors: [String!]   event: ProductUpdated }  type ProductView {   customer: Customer!   duration: Int!   product: Product!   time: DateTime! }  type ProductViewPage {   data: [ProductView!]!   pagingInfo: PagingInfo! }  type ProductViewed {   eventData: ProductViewedData! }  type ProductViewedData {   customer: ProductViewedDataCustomer   duration: Int!   product: ProductViewedDataProduct   time: DateTime! }  type ProductViewedDataCustomer {   id: UUID! }  type ProductViewedDataProduct {   id: UUID! }  type ProductViewedResult {   errors: [String!]   event: ProductViewed }  type Query {   customerById(id: UUID): Customer   customers(orderBy: [OrderByInput!], pageSize: Int = 10, pageState: String): CustomerPage!   productById(id: UUID): Product   productCategories(orderBy: [OrderByInput!], pageSize: Int = 10, pageState: String): ProductCategoryPage!   productCategoryById(id: UUID): ProductCategory   productPurchaseById(id: UUID): ProductPurchase   productPurchases(orderBy: [OrderByInput!], pageSize: Int = 10, pageState: String): ProductPurchasePage!   productViews(orderBy: [OrderByInput!], pageSize: Int = 10, pageState: String): ProductViewPage!   products(orderBy: [OrderByInput!], pageSize: Int = 10, pageState: String): ProductPage! }  type Subscription {   customerUpdated: CustomerUpdated!   productCategoryUpdated: ProductCategoryUpdated!   productPurchased: ProductPurchased!   productUpdated: ProductUpdated!   productViewed: ProductViewed! }  enum OrderByDirection {   ASC   DESC }  input CustomerUpdatedDataInput {   birthdate: DateTime   firstName: String   id: UUID!   lastName: String }  input CustomerUpdatedInput {   time: DateTime }  input OrderByInput {   direction: OrderByDirection!   field: String! }  input ProductCategoryUpdatedDataInput {   id: UUID!   name: String!   superCategory: ProductCategoryUpdatedDataInputSuperCategory }  input ProductCategoryUpdatedDataInputSuperCategory {   id: UUID! }  input ProductCategoryUpdatedInput {   time: DateTime }  input ProductPurchasedDataInput {   amount: Float!   customer: ProductPurchasedDataInputCustomer   id: UUID!   product: ProductPurchasedDataInputProduct   time: DateTime }  input ProductPurchasedDataInputCustomer {   id: UUID! }  input ProductPurchasedDataInputProduct {   id: UUID! }  input ProductPurchasedInput {   time: DateTime }  input ProductUpdatedDataInput {   category: ProductUpdatedDataInputCategory   description: String   id: UUID!   name: String! }  input ProductUpdatedDataInputCategory {   id: UUID! }  input ProductUpdatedInput {   time: DateTime }  input ProductViewedDataInput {   customer: ProductViewedDataInputCustomer   duration: Int!   product: ProductViewedDataInputProduct   time: DateTime! }  input ProductViewedDataInputCustomer {   id: UUID! }  input ProductViewedDataInputProduct {   id: UUID! } ";
-
+/*
+var schemaText = ""+
+    "scalar DateTime scalar UUID  type Customer {   birthdate: DateTime   firstName: String   id: UUID!   lastName: String   purchases(orderBy: [OrderByInput!], pageSize: Int = 10, pageState: String): ProductPurchasePage!   views(orderBy: [OrderByInput!], pageSize: Int = 10, pageState: String): ProductViewPage! }  type CustomerPage {   data: [Customer!]!   pagingInfo: PagingInfo! }  type CustomerUpdated {   eventData: CustomerUpdatedData!   time: DateTime }  type CustomerUpdatedData {   birthdate: DateTime   firstName: String   id: UUID!   lastName: String }  type CustomerUpdatedResult {   errors: [String!]   event: CustomerUpdated }  type Mutation {   customerUpdated(event: CustomerUpdatedInput!, eventData: CustomerUpdatedDataInput!): CustomerUpdatedResult!   productCategoryUpdated(event: ProductCategoryUpdatedInput!, eventData: ProductCategoryUpdatedDataInput!): ProductCategoryUpdatedResult!   productPurchased(event: ProductPurchasedInput!, eventData: ProductPurchasedDataInput!): ProductPurchasedResult!   productUpdated(event: ProductUpdatedInput!, eventData: ProductUpdatedDataInput!): ProductUpdatedResult!   productViewed(eventData: ProductViewedDataInput!): ProductViewedResult! }  type PagingInfo {   hasNextPage: Boolean!   pageState: String }  type Product {   category: ProductCategory!   description: String   id: UUID!   name: String! }  type ProductCategory {   id: UUID!   name: String!   products(orderBy: [OrderByInput!], pageSize: Int = 10, pageState: String): ProductPage!   subCategories(orderBy: [OrderByInput!], pageSize: Int = 10, pageState: String): ProductCategoryPage!   superCategory: ProductCategory }  type ProductCategoryPage {   data: [ProductCategory!]!   pagingInfo: PagingInfo! }  type ProductCategoryUpdated {   eventData: ProductCategoryUpdatedData!   time: DateTime }  type ProductCategoryUpdatedData {   id: UUID!   name: String!   superCategory: ProductCategoryUpdatedDataSuperCategory }  type ProductCategoryUpdatedDataSuperCategory {   id: UUID! }  type ProductCategoryUpdatedResult {   errors: [String!]   event: ProductCategoryUpdated }  type ProductPage {   data: [Product!]!   pagingInfo: PagingInfo! }  type ProductPurchase {   amount: Float!   customer: Customer!   id: UUID!   product: Product!   time: DateTime }  type ProductPurchasePage {   data: [ProductPurchase!]!   pagingInfo: PagingInfo! }  type ProductPurchased {   eventData: ProductPurchasedData!   time: DateTime }  type ProductPurchasedData {   amount: Float!   customer: ProductPurchasedDataCustomer   id: UUID!   product: ProductPurchasedDataProduct   time: DateTime }  type ProductPurchasedDataCustomer {   id: UUID! }  type ProductPurchasedDataProduct {   id: UUID! }  type ProductPurchasedResult {   errors: [String!]   event: ProductPurchased }  type ProductUpdated {   eventData: ProductUpdatedData!   time: DateTime }  type ProductUpdatedData {   category: ProductUpdatedDataCategory   description: String   id: UUID!   name: String! }  type ProductUpdatedDataCategory {   id: UUID! }  type ProductUpdatedResult {   errors: [String!]   event: ProductUpdated }  type ProductView {   customer: Customer!   duration: Int!   product: Product!   time: DateTime! }  type ProductViewPage {   data: [ProductView!]!   pagingInfo: PagingInfo! }  type ProductViewed {   eventData: ProductViewedData! }  type ProductViewedData {   customer: ProductViewedDataCustomer   duration: Int!   product: ProductViewedDataProduct   time: DateTime! }  type ProductViewedDataCustomer {   id: UUID! }  type ProductViewedDataProduct {   id: UUID! }  type ProductViewedResult {   errors: [String!]   event: ProductViewed }  type Query {   customerById(id: UUID): Customer   customers(orderBy: [OrderByInput!], pageSize: Int = 10, pageState: String): CustomerPage!   productById(id: UUID): Product   productCategories(orderBy: [OrderByInput!], pageSize: Int = 10, pageState: String): ProductCategoryPage!   productCategoryById(id: UUID): ProductCategory   productPurchaseById(id: UUID): ProductPurchase   productPurchases(orderBy: [OrderByInput!], pageSize: Int = 10, pageState: String): ProductPurchasePage!   productViews(orderBy: [OrderByInput!], pageSize: Int = 10, pageState: String): ProductViewPage!   products(orderBy: [OrderByInput!], pageSize: Int = 10, pageState: String): ProductPage! }  type Subscription {   customerUpdated: CustomerUpdated!   productCategoryUpdated: ProductCategoryUpdated!   productPurchased: ProductPurchased!   productUpdated: ProductUpdated!   productViewed: ProductViewed! }  enum OrderByDirection {   ASC   DESC }  input CustomerUpdatedDataInput {   birthdate: DateTime   firstName: String   id: UUID!   lastName: String }  input CustomerUpdatedInput {   time: DateTime }  input OrderByInput {   direction: OrderByDirection!   field: String! }  input ProductCategoryUpdatedDataInput {   id: UUID!   name: String!   superCategory: ProductCategoryUpdatedDataInputSuperCategory }  input ProductCategoryUpdatedDataInputSuperCategory {   id: UUID! }  input ProductCategoryUpdatedInput {   time: DateTime }  input ProductPurchasedDataInput {   amount: Float!   customer: ProductPurchasedDataInputCustomer   id: UUID!   product: ProductPurchasedDataInputProduct   time: DateTime }  input ProductPurchasedDataInputCustomer {   id: UUID! }  input ProductPurchasedDataInputProduct {   id: UUID! }  input ProductPurchasedInput {   time: DateTime }  input ProductUpdatedDataInput {   category: ProductUpdatedDataInputCategory   description: String   id: UUID!   name: String! }  input ProductUpdatedDataInputCategory {   id: UUID! }  input ProductUpdatedInput {   time: DateTime }  input ProductViewedDataInput {   customer: ProductViewedDataInputCustomer   duration: Int!   product: ProductViewedDataInputProduct   time: DateTime! }  input ProductViewedDataInputCustomer {   id: UUID! }  input ProductViewedDataInputProduct {   id: UUID! } "
+*/
 /*
 "type Query {"+
 "    guest(email: String): Guest"+
@@ -67,26 +68,34 @@ var schemaText = "" + "scalar DateTime scalar UUID  type Customer {   birthdate:
 ""
 */
 
-var schema = buildSchema(schemaText);
+//var schema = buildSchema(schemaText);
 
-//Start with the query types and split into queries that return Lists or Object types
 
-var queryTypes = schema.getQueryType().getFields();
+var schemaConnector = (0, _autoConnectors.createCustomQueryConnector)("read", getIntrospectionQuery(), "__schema");
+var schemaPromise = schemaConnector().read();
 
-var objectQueries = [];
-var listQueries = [];
+schemaPromise.then(function (res) {
+    var schemaText = res;
+    var schema = buildSchema(schemaText);
+    console.log(schema);
 
-for (var key in queryTypes) {
-    var queryType = queryTypes[key];
-    // objects have names
-    if (queryType.type.name !== undefined) {
-        objectQueries.push(queryType);
-    } else {
-        listQueries.push(queryType);
+    //Start with the query types and split into queries that return Lists or Object types
+    var queryTypes = schema.getQueryType().getFields();
+    var objectQueries = [];
+    var listQueries = [];
+
+    for (var key in queryTypes) {
+        var queryType = queryTypes[key];
+        // objects have names
+        if (queryType.type.name !== undefined) {
+            objectQueries.push(queryType);
+        } else {
+            listQueries.push(queryType);
+        }
     }
-}
 
-var viewData = (0, _views.generateView)(objectQueries, listQueries);
+    var viewData = (0, _views.generateView)(objectQueries, listQueries);
+});
 
 var OPTIONS = {
     debug: true,
@@ -96,8 +105,8 @@ var OPTIONS = {
 
 var admin = {};
 admin.title = 'CRUDL GraphQL UI', admin.options = OPTIONS;
-admin.views = viewData;
-//admin.views = { guests: guests }
+//admin.views = viewData
+admin.views = { guests: guests };
 admin.auth = { login: login, logout: logout };
 admin.custom = { dashboard: _Dashboard2.default };
 admin.id = 'crudl';
@@ -108,9 +117,9 @@ admin.messages = {
     'pageNotFound': 'Sorry, page not found'
 };
 
-exports.default = admin;
+crudl.render(admin);
 
-},{"./auth":2,"./custom/Dashboard":13,"./views":16,"./views/guests.js":15,"graphql":65,"react":253}],2:[function(require,module,exports){
+},{"./auth":2,"./auto-connectors":3,"./custom/Dashboard":13,"./views":16,"./views/guests.js":15,"graphql":65,"react":253}],2:[function(require,module,exports){
 'use strict';
 
 var _autoConnectors = require('./auto-connectors');
@@ -147,6 +156,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.login = undefined;
 exports.createGraphQLConnector = createGraphQLConnector;
 exports.createResourceConnector = createResourceConnector;
+exports.createCustomQueryConnector = createCustomQueryConnector;
 
 var _pluralize = require('pluralize');
 
@@ -251,6 +261,10 @@ export function createOptionsConnector(namePl, valueKey, labelKey) {
         .use(transformData('read', data => ({ options: data })))
 }
 */
+
+function createCustomQueryConnector(type, queryString, pathData) {
+    return createGraphQLConnector().use((0, _query2.default)(type, queryString, pathData));
+}
 
 var login = exports.login = (0, _crudlConnectorsBase.createFrontendConnector)((0, _crudlConnectorsBase.createBackendConnector)()).use((0, _middleware.url)('/api/login')).use((0, _middleware.crudToHttp)()).use(require('./middleware/crudlErrors').default) // rest-api errors
 .use((0, _middleware.transformData)('create', function (data) {
@@ -31575,6 +31589,6 @@ var _admin2 = _interopRequireDefault(_admin);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-crudl.render(_admin2.default);
+_admin2.default;
 
 },{"./admin/admin":1}]},{},[261]);

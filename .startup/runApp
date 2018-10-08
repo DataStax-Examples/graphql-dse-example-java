@@ -21,4 +21,4 @@ mvn package
 
 echo $IP
 
-nohup java -jar target/graphql-dse-1.0-SNAPSHOT.jar server "$PWD"/conf/graphql-dse.yaml &
+mvn exec:java -Dexec.mainClass="com.syllogistic.eightfour.GraphQLDseApplication" -Dexec.args="server conf/graphql-dse.yaml"

@@ -1,7 +1,7 @@
 {
   "name": "crudl-graphql",
   "version": "0.3.0",
-  "description": "crudl example express (graphql)",
+  "description": "crudl graphql",
   "main": "index.js",
   "scripts": {
     "browserify": "mkdir -p ../src/main/resources/assets/crudl && browserify . --extension=.jsx > ../src/main/resources/assets/crudl/admin.js",

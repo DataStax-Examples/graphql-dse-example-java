@@ -1,2 +1,6 @@
 target/
 nohup.out
+.idea/workspace.xml
+eightfour-graphql.iml
+
+

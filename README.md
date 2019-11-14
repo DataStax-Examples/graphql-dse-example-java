@@ -1,4 +1,4 @@
-# DSE GraphQL Sample App
+# GraphQL Cassandra Example Application
 
 This demonstrates how to build a working application on DSE with GraphQL and a modern javascript based frontend.
 

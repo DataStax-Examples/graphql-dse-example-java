@@ -1,46 +1,35 @@
 # GraphQL Cassandra Example Application
+[GraphQL](https://graphql.org/) is an emerging web service technology with significant momentum in the developer community.
+Aside from its growing popularity, there are several technical reasons why GraphQL is a good fit for a Apache Cassandra™ or DataStax Enterprise backed application.
 
-This demonstrates how to build a working application on DSE with GraphQL and a modern javascript based frontend.
+This application shows how to build a working application on Cassandra or DSE with GraphQL and a modern javascript based frontend.
 
 Contributor(s): [Sebastián Estévez](https://github.com/phact)
 
 ## Objectives
-[GraphQL](https://graphql.org/) is an emerging web service technology with significant momentum in the developer community.
-Aside from its growing popularity, there are several technical reasons why GraphQL is a good fit for a DSE backed application.
-This asset provides a starting point for Builders who are looking to create GraphQL based applications on DSE.
+- Demonstrate how to build a GraphQL API with Cassandra and DSE
 
 ### Project Layout
 The asset includes both frontend and backend components:
 
-* [API project](src/main/java/com/syllogistic/eightfour) - Java application that uses [Dropwizard](https://www.dropwizard.io/en/stable/) to generate a GraphQL web service that persists and accesses data in DSE
+* [API project](src/main/java/com/syllogistic/eightfour) - Java application that uses [Dropwizard](https://www.dropwizard.io/en/stable/) to generate a GraphQL web service that writes and reads data in Cassandra or DSE
 * [index.html](src/main/resources/assets/index.htm) - Javascript single page app hosted by the java app that interacts with the GraphQL service to perform CRUD operations (based on [CRUDL.io](https://crudl.io/))
 
 ## How this Sample Works
 
-### Business Take Aways
+### Take Aways
 
-This asset looks to improve business outcomes for projects that involve custom built DSE Applications by:
+This asset looks to improve outcomes for projects that involve custom built Cassandra or DSE Applications by:
 
-* **reducing the learning curve** required to build an app that interacts with DSE
-* **accelerating time to value** by providing a quick way to built a UI that leverages a DSE backend
-* **minimize project risk** by encouraging developers to follow application building best practices
-* **future proof** their applications by handling application changes and new requirements seamlessly
-
-Using GraphQL on DSE helps applications achieve the 5 dimensions by:
-
-* Making the app **faster** by sending only the data needed to paint a UI
-* Making the app more **contextual** by leveraging relationships in the GraphQL schema
-
-### Technical Take Aways
+* **reducing the learning curve** required to build an GraphQL app that interacts with Cassandra or DSE
+* **accelerating time to value** by providing a quick way to build a UI that leverages a Cassandra or DSE backend
+* **minimize project risk** by encouraging developers to follow application building best practices such as by only sending the data needed to paint the UI
+* **future proof** their applications by handling application changes and new requirements seamlessly through leveraging relationships in the GraphQL schema
 
 #### GraphQL
 
-GraphQL requires developers to lay out their logical data models and access patterns up front in a strongly typed structure known as the GraphQL schema.
-This is makes it a great match for DSE, since we tend to create data models based on access patterns.
-GraphQL does not make any assumptions about the persistence layer.
-Instead it allows developers to generate a custom DAO for each access pattern.
-In DSE, there are multiple ways of modeling a particular conceptual schema and access pattern.
-This asset focuses on a simple example and aims to provide a basic pattern for developers to follow.
+* GraphQL requires developers to lay out their logical data models and access patterns up front in a strongly typed structure known as the GraphQL schema. This is makes it a great match for Cassandra or DSE, since we tend to create data models based on access patterns.
+* GraphQL does not make any assumptions about the persistence layer. Instead it allows developers to generate a custom Data Access Object for each access pattern.
 
 #### CRUDL
 
@@ -55,7 +44,7 @@ Dropwizard is a Java framework that focuses on production readiness and ships ou
 ### Prerequisites
 
 * Java 8
-* A DSE cluster with the connection information
+* A Cassandra, DDAC, DSE cluster or Apollo database ( docker is a nice option for local install - [see docs](https://docs.datastax.com/en/docker/doc/docker/dockerQuickStart.html) )
 
 This application requires that you specify and environment variable `IP` which is the contact point of your DSE cluster.
 If you need to change this it is located in the [eightfour.yaml](conf/eightfour.yaml) file.

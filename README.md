@@ -50,7 +50,7 @@ This application requires that you specify and environment variable `IP` which i
 If you need to change this it is located in the [eightfour.yaml](conf/eightfour.yaml) file.
 
 ### Running
-Once you load this file into IntelliJ their is a pre-configured configuration named `run`.  Once you start this then a scroll of 
+Once you load this file into IntelliJ there is a pre-configured configuration named `run`.  Once you start this then a scroll of 
 text will go by and once you see a line similar to the following:
 
 ```

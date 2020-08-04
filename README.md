@@ -44,7 +44,7 @@ Dropwizard is a Java framework that focuses on production readiness and ships ou
 ### Prerequisites
 
 * Java 8
-* A Cassandra, DDAC, DSE cluster or Apollo database ( docker is a nice option for local install - [see docs](https://docs.datastax.com/en/docker/doc/docker/dockerQuickStart.html) )
+* A Cassandra, DSE cluster or Astra database ( docker is a nice option for local install - [see docs](https://docs.datastax.com/en/docker/doc/docker/dockerQuickStart.html) )
 
 This application requires that you specify and environment variable `IP` which is the contact point of your DSE cluster.
 If you need to change this it is located in the [eightfour.yaml](conf/eightfour.yaml) file.
